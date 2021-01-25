@@ -1,0 +1,847 @@
+<!--
+	pdump2ccol - converteer pdump naar ccol format
+    Copyright (C) 2020-2021 Gemeente Den Haag, Netherlands
+    Developed by Jasper Vries
+ 
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+ 
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+ 
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>pdump2ccol</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
+
+<body>
+    <h1>pdump2ccol</h1>
+    <p>Converteer ontruimingstijden in pdump formaat naar ccol formaat.</p>
+    <p>Werkwijze: blader naar een pdump bestand of plak de inhoud ervan in onderstaand tekstvak. Klik op Voorbeeld om het resultaat eerst te zien of Download om het meteen als bestand op te slaan.</p>
+    
+    <input type="file" id="file"><br>
+    <textarea id="input">**** PDUMP 069 / VR 25-09-2020 / 16:33:08 ****
+
+TO 01 05: 10/te           TO 01 09: 0/te            TO 01 28: 35/te
+TO 01 37: -3              TO 01 38: 30/te           TO 02 05: 10/te
+TO 02 06: 0/te            TO 02 09: 10/te           TO 02 10: 35/te
+TO 02 11: 35/te           TO 02 12: 20/te           TO 02 26: 50/te
+TO 02 35: -3              TO 02 36: 55/te           TO 02 60: -3
+TO 03 05: 30/te           TO 03 06: 40/te           TO 03 07: 60/te
+TO 03 08: 55/te           TO 03 11: 45/te           TO 03 12: 20/te
+TO 03 24: 90/te           TO 03 32: -3              TO 03 33: -3
+TO 03 34: 95/te           TO 05 01: 20/te           TO 05 02: 25/te
+TO 05 03: 5/te            TO 05 08: 0/te            TO 05 09: 0/te
+TO 05 12: 0/te            TO 05 24: 0/te            TO 05 28: 35/te
+TO 05 32: 10/te           TO 05 33: -3              TO 05 34: -3
+TO 05 37: -3              TO 05 38: 50/te           TO 06 02: 35/te
+TO 06 03: 0/te            TO 06 08: 20/te           TO 06 09: 40/te
+TO 06 10: 55/te           TO 06 11: 50/te           TO 06 24: 0/te
+TO 06 26: 70/te           TO 06 32: -3              TO 06 33: 10/te
+TO 06 34: -3              TO 06 35: -3              TO 06 36: 80/te
+TO 06 60: -3              TO 07 03: 0/te            TO 07 11: 5/te
+TO 07 24: 40/te           TO 07 26: 0/te            TO 07 32: -3
+TO 07 33: -3              TO 07 34: 55/te           TO 07 35: -3
+TO 07 36: -3              TO 07 60: 15/te           TO 08 03: 0/te
+TO 08 05: 35/te           TO 08 06: 15/te           TO 08 11: 0/te
+TO 08 12: 0/te            TO 08 26: 0/te            TO 08 35: -3
+TO 08 36: -3              TO 08 60: 10/te           TO 09 01: 40/te
+TO 09 02: 40/te           TO 09 05: 30/te           TO 09 06: 0/te
+TO 09 11: 20/te           TO 09 12: 25/te           TO 09 26: 0/te
+TO 09 28: 60/te           TO 09 35: 10/te           TO 09 36: -3
+TO 09 37: -3              TO 09 38: 65/te           TO 09 60: -3
+TO 10 02: 0/te            TO 10 06: 0/te            TO 10 26: 30/te
+TO 10 28: 0/te            TO 10 35: -3              TO 10 36: 35/te
+TO 10 37: 10/te           TO 10 38: -3              TO 10 60: -3
+TO 11 02: 0/te            TO 11 03: 0/te            TO 11 06: 10/te
+TO 11 07: 25/te           TO 11 08: 30/te           TO 11 09: 15/te
+TO 11 24: 50/te           TO 11 28: 0/te            TO 11 32: -3
+TO 11 33: -3              TO 11 34: 55/te           TO 11 37: 10/te
+TO 11 38: -3              TO 12 02: 10/te           TO 12 03: 20/te
+TO 12 05: 55/te           TO 12 08: 35/te           TO 12 09: 5/te
+TO 12 28: 0/te            TO 12 37: 10/te           TO 12 38: -3
+TO 24 03: 0/te            TO 24 05: 80/te           TO 24 06: 45/te
+TO 24 07: 0/te            TO 24 11: 0/te            TO 26 02: 0/te
+TO 26 06: 0/te            TO 26 07: 80/te           TO 26 08: 70/te
+TO 26 09: 45/te           TO 26 10: 0/te            TO 28 01: 5/te
+TO 28 05: 10/te           TO 28 09: 0/te            TO 28 10: 85/te
+TO 28 11: 75/te           TO 28 12: 55/te           TO 32 03: -2
+TO 32 05: 80/te           TO 32 06: -2              TO 32 07: -2
+TO 32 11: -2              TO 33 03: -2              TO 33 05: -2
+TO 33 06: 45/te           TO 33 07: -2              TO 33 11: -2
+TO 34 03: 10/te           TO 34 05: -2              TO 34 06: -2
+TO 34 07: 40/te           TO 34 11: 35/te           TO 35 02: -2
+TO 35 06: -2              TO 35 07: -2              TO 35 08: -2
+TO 35 09: 50/te           TO 35 10: -2              TO 36 02: 25/te
+TO 36 06: 5/te            TO 36 07: -2              TO 36 08: -2
+TO 36 09: -2              TO 36 10: 60/te           TO 37 01: -2
+TO 37 05: -2              TO 37 09: -2              TO 37 10: 130/te
+TO 37 11: 100/te          TO 37 12: 130/te          TO 38 01: 75/te
+TO 38 05: 80/te           TO 38 09: 60/te           TO 38 10: -2
+TO 38 11: -2              TO 38 12: -2              TO 60 02: -2
+TO 60 06: -2              TO 60 07: 95/te           TO 60 08: 100/te
+TO 60 09: -2              TO 60 10: -2              
+
+TDB 011: 0/te             TDB 012: 0/te             TDB 021: 0/te
+TDB 022: 0/te             TDB 023: 0/te             TDB 024: 0/te
+TDB 031: 0/te             TDB 032: 0/te             TDB 033: 0/te
+TDB 034: 0/te             TDB opticom: 20/te        TDB 051: 0/te
+TDB 052: 0/te             TDB 053: 0/te             TDB 054: 0/te
+TDB 055: 0/te             TDB 056: 0/te             TDB 061: 0/te
+TDB 062: 10/te            TDB 063: 0/te             TDB 064: 0/te
+TDB 071: 0/te             TDB 072: 10/te            TDB 073: 0/te
+TDB 074: 0/te             TDB 081: 10/te            TDB 082: 0/te
+TDB 083: 0/te             TDB 084: 0/te             TDB 091: 10/te
+TDB 092: 0/te             TDB 093: 0/te             TDB 094: 0/te
+TDB 101: 0/te             TDB 102: 0/te             TDB 103: 0/te
+TDB 111: 0/te             TDB 112: 0/te             TDB 113: 0/te
+TDB 114: 0/te             TDB 115: 0/te             TDB 116: 0/te
+TDB 117: 0/te             TDB 118: 0/te             TDB 119: 0/te
+TDB 121: 0/te             TDB 122: 0/te             TDB 123: 0/te
+TDB 241: 0/te             TDB 242: 0/te             TDB 261: 0/te
+TDB 262: 0/te             TDB 281: 0/te             TDB 282: 0/te
+
+TDH 011: 20/te            TDH 012: 5/te             TDH 021: 20/te
+TDH 022: 20/te            TDH 023: 5/te             TDH 024: 5/te
+TDH 031: 20/te            TDH 032: 20/te            TDH 033: 5/te
+TDH 034: 10/te            TDH opticom: 20/te        TDH 051: 20/te
+TDH 052: 20/te            TDH 053: 20/te            TDH 054: 5/te
+TDH 055: 5/te             TDH 056: 5/te             TDH 061: 20/te
+TDH 062: 20/te            TDH 063: 10/te            TDH 064: 10/te
+TDH 071: 20/te            TDH 072: 20/te            TDH 073: 5/te
+TDH 074: 5/te             TDH 081: 20/te            TDH 082: 20/te
+TDH 083: 5/te             TDH 084: 5/te             TDH 091: 20/te
+TDH 092: 20/te            TDH 093: 5/te             TDH 094: 5/te
+TDH 101: 30/te            TDH 102: 0/te             TDH 103: 30/te
+TDH 111: 20/te            TDH 112: 20/te            TDH 113: 20/te
+TDH 114: 0/te             TDH 115: 0/te             TDH 116: 0/te
+TDH 117: 30/te            TDH 118: 30/te            TDH 119: 30/te
+TDH 121: 20/te            TDH 122: 0/te             TDH 123: 30/te
+TDH 241: 20/te            TDH 242: 40/te            TDH 261: 20/te
+TDH 262: 40/te            TDH 281: 20/te            TDH 282: 40/te
+TDH lb1: 30/te            TDH lb2: 30/te            TDH lb3: 30/te
+TDH lb4: 30/te            TDH lb5: 30/te            TDH lb6: 30/te
+TDH lb7: 30/te            TDH lb8: 30/te            TDH lb9: 30/te
+TDH lb10: 30/te           
+
+TBG 011: 60/tm            TBG 012: 150/tm           TBG S01_1nos: 0/tm
+TBG S01_2nos: 0/tm        TBG 021: 60/tm            TBG 022: 60/tm
+TBG 023: 150/tm           TBG 024: 150/tm           TBG 031: 60/tm
+TBG 032: 60/tm            TBG 033: 150/tm           TBG 034: 150/tm
+TBG opticom: 0/tm         TBG S03_1nos: 0/tm        TBG S03_2nos: 0/tm
+TBG 051: 60/tm            TBG 052: 60/tm            TBG 053: 60/tm
+TBG 054: 150/tm           TBG 055: 150/tm           TBG 056: 150/tm
+TBG 061: 60/tm            TBG 062: 60/tm            TBG 063: 150/tm
+TBG 064: 150/tm           TBG 071: 60/tm            TBG 072: 60/tm
+TBG 073: 150/tm           TBG 074: 150/tm           TBG 081: 60/tm
+TBG 082: 60/tm            TBG 083: 150/tm           TBG 084: 150/tm
+TBG 091: 60/tm            TBG 092: 60/tm            TBG 093: 150/tm
+TBG 094: 150/tm           TBG 101: 60/tm            TBG 102: 150/tm
+TBG 103: 60/tm            TBG 111: 60/tm            TBG 112: 60/tm
+TBG 113: 60/tm            TBG 114: 150/tm           TBG 115: 150/tm
+TBG 116: 150/tm           TBG 117: 0/tm             TBG 118: 0/tm
+TBG 119: 60/tm            TBG 121: 60/tm            TBG 122: 150/tm
+TBG 123: 60/tm            TBG 241: 60/tm            TBG 242: 60/tm
+TBG K241: 60/tm           TBG 261: 60/tm            TBG 262: 60/tm
+TBG K261: 60/tm           TBG 281: 60/tm            TBG 282: 60/tm
+TBG K281: 60/tm           TBG K321: 60/tm           TBG K322: 60/tm
+TBG K341: 60/tm           TBG K342: 60/tm           TBG K361: 60/tm
+TBG K362: 60/tm           TBG K371: 60/tm           TBG K372: 60/tm
+TBG K381: 60/tm           TBG K382: 60/tm           TBG lb1: 60/tm
+TBG lb2: 60/tm            TBG lb3: 0/tm             TBG lb4: 0/tm
+TBG lb5: 0/tm             TBG lb6: 0/tm             TBG lb7: 0/tm
+TBG lb8: 0/tm             TBG lb9: 0/tm             TBG lb10: 0/tm
+TBG K601: 0/tm            TBG K602: 0/tm            
+
+TOG 011: 720/tm           TOG 012: 720/tm           TOG S01_1nos: 0/tm
+TOG S01_2nos: 0/tm        TOG 021: 720/tm           TOG 022: 720/tm
+TOG 023: 720/tm           TOG 024: 720/tm           TOG 031: 720/tm
+TOG 032: 720/tm           TOG 033: 720/tm           TOG 034: 720/tm
+TOG opticom: 0/tm         TOG S03_1nos: 0/tm        TOG S03_2nos: 0/tm
+TOG 051: 720/tm           TOG 052: 720/tm           TOG 053: 720/tm
+TOG 054: 720/tm           TOG 055: 720/tm           TOG 056: 720/tm
+TOG 061: 720/tm           TOG 062: 720/tm           TOG 063: 720/tm
+TOG 064: 720/tm           TOG 071: 720/tm           TOG 072: 720/tm
+TOG 073: 720/tm           TOG 074: 720/tm           TOG 081: 720/tm
+TOG 082: 720/tm           TOG 083: 720/tm           TOG 084: 720/tm
+TOG 091: 720/tm           TOG 092: 720/tm           TOG 093: 720/tm
+TOG 094: 720/tm           TOG 101: 720/tm           TOG 102: 720/tm
+TOG 103: 720/tm           TOG 111: 720/tm           TOG 112: 720/tm
+TOG 113: 720/tm           TOG 114: 720/tm           TOG 115: 720/tm
+TOG 116: 720/tm           TOG 117: 0/tm             TOG 118: 0/tm
+TOG 119: 720/tm           TOG 121: 720/tm           TOG 122: 720/tm
+TOG 123: 720/tm           TOG 241: 720/tm           TOG 242: 720/tm
+TOG K241: 1440/tm         TOG 261: 720/tm           TOG 262: 720/tm
+TOG K261: 1440/tm         TOG 281: 720/tm           TOG 282: 720/tm
+TOG K281: 4320/tm         TOG K321: 4320/tm         TOG K322: 4320/tm
+TOG K341: 4320/tm         TOG K342: 4320/tm         TOG K361: 4320/tm
+TOG K362: 4320/tm         TOG K371: 4320/tm         TOG K372: 4320/tm
+TOG K381: 4320/tm         TOG K382: 4320/tm         TOG lb1: 1440/tm
+TOG lb2: 1440/tm          TOG lb3: 0/tm             TOG lb4: 0/tm
+TOG lb5: 0/tm             TOG lb6: 0/tm             TOG lb7: 0/tm
+TOG lb8: 0/tm             TOG lb9: 0/tm             TOG lb10: 0/tm
+TOG K601: 4320/tm         TOG K602: 4320/tm         
+
+TRG 01: 20/te             TRG 02: 20/te             TRG 03: 20/te
+TRG 05: 20/te             TRG 06: 20/te             TRG 07: 20/te
+TRG 08: 20/te             TRG 09: 20/te             TRG 10: 20/te
+TRG 11: 20/te             TRG 12: 20/te             TRG 24: 20/te
+TRG 26: 20/te             TRG 28: 20/te             TRG 32: 20/te
+TRG 33: 20/te             TRG 34: 20/te             TRG 35: 20/te
+TRG 36: 20/te             TRG 37: 20/te             TRG 38: 20/te
+TRG 60: 20/te             
+
+TGG 01: 50/te             TGG 02: 50/te             TGG 03: 50/te
+TGG 05: 50/te             TGG 06: 50/te             TGG 07: 50/te
+TGG 08: 50/te             TGG 09: 50/te             TGG 10: 50/te
+TGG 11: 50/te             TGG 12: 50/te             TGG 24: 40/te
+TGG 26: 40/te             TGG 28: 40/te             TGG 32: 50/te
+TGG 33: 50/te             TGG 34: 50/te             TGG 35: 50/te
+TGG 36: 50/te             TGG 37: 50/te             TGG 38: 50/te
+TGG 60: 50/te             
+
+TGL 01: 30/te             TGL 02: 35/te             TGL 03: 30/te
+TGL 05: 35/te             TGL 06: 30/te             TGL 07: 30/te
+TGL 08: 35/te             TGL 09: 30/te             TGL 10: 30/te
+TGL 11: 35/te             TGL 12: 30/te             TGL 24: 30/te
+TGL 26: 30/te             TGL 28: 30/te             TGL 32: 30/te
+TGL 33: 30/te             TGL 34: 30/te             TGL 35: 30/te
+TGL 36: 30/te             TGL 37: 30/te             TGL 38: 30/te
+TGL 60: 30/te             
+
+TFG 01: 60/te             TFG 02: 60/te             TFG 03: 60/te
+TFG 05: 60/te             TFG 06: 60/te             TFG 07: 60/te
+TFG 08: 60/te             TFG 09: 60/te             TFG 10: 60/te
+TFG 11: 60/te             TFG 12: 60/te             TFG 24: 50/te
+TFG 26: 50/te             TFG 28: 50/te             TFG 32: 60/te
+TFG 33: 60/te             TFG 34: 60/te             TFG 35: 60/te
+TFG 36: 60/te             TFG 37: 60/te             TFG 38: 60/te
+TFG 60: 60/te             
+
+T KM01: 80/te             T KM02: 80/te             T KM03: 80/te
+T KM05: 80/te             T KM06: 80/te             T KM07: 80/te
+T KM08: 80/te             T KM09: 80/te             T KM10: 150/te
+T KM11: 80/te             T KM12: 80/te             T KM24: 80/te
+T KM26: 80/te             T KM28: 80/te             T AV241: 0/te
+T AV242: 70/te            T AV261: 0/te             T AV262: 70/te
+T AV281: 0/te             T AV282: 70/te            T GB01: 300/te
+T RT01: 9999/te           T RTHD01: 9999/te         T BTOVG01: 300/te
+T BLK01: 0/te             T GB02: 300/te            T RT02: 9999/te
+T RTHD02: 9999/te         T BTOVG02: 300/te         T BLK02: 0/te
+T GB03: 300/te            T RT03: 9999/te           T RTHD03: 9999/te
+T BTOVG03: 300/te         T BLK03: 0/te             T GB05: 300/te
+T RT05: 9999/te           T RTHD05: 9999/te         T BTOVG05: 300/te
+T BLK05: 0/te             T GB06: 300/te            T RT06: 9999/te
+T RTHD06: 9999/te         T BTOVG06: 300/te         T BLK06: 0/te
+T GB08: 300/te            T RT08: 9999/te           T RTHD08: 9999/te
+T BTOVG08: 300/te         T BLK08: 0/te             T GB11: 300/te
+T RT11: 9999/te           T RTHD11: 9999/te         T BTOVG11: 300/te
+T BLK11: 0/te             T HDV011: 25/te           T HDV021: 25/te
+T HDV022: 25/te           T HDV031: 25/te           T HDV032: 25/te
+T HDV051: 25/te           T HDV052: 25/te           T HDV053: 25/te
+T HDV061: 25/te           T HDV062: 25/te           T HDV071: 25/te
+T HDV072: 25/te           T HDV081: 25/te           T HDV082: 25/te
+T HDV091: 25/te           T HDV092: 25/te           T HDV101: 25/te
+T HDV111: 25/te           T HDV112: 25/te           T HDV113: 25/te
+T HDV121: 25/te           T NLSG3233: 140/te        T NLSG3234: 230/te
+T NLSG3332: 120/te        T NLSG3334: 120/te        T NLSG3432: 230/te
+T NLSG3433: 140/te        T NLSG3536: 120/te        T NLSG3560: 130/te
+T NLSG3635: 120/te        T NLSG3660: 230/te        T NLSG3738: 220/te
+T NLSG3837: 220/te        T NLSG6035: 150/te        T NLSG6036: 240/te
+T cycl: 999/ts            T dvm: 10/tm              T h2d012: 0/te
+T h2d023: 0/te            T h2d024: 0/te            T h2d033: 0/te
+T h2d034: 0/te            T h2d054: 0/te            T h2d055: 20/te
+T h2d056: 20/te           T h2d063: 20/te           T h2d064: 20/te
+T h2d073: 20/te           T h2d074: 20/te           T h2d083: 20/te
+T h2d084: 20/te           T h2d093: 20/te           T h2d094: 20/te
+T h2d102: 20/te           T h2d114: 20/te           T h2d115: 20/te
+T h2d116: 20/te           T h2d122: 0/te            T ssfd011: 80/te
+T ssfdb011: 80/te         T ssfd021: 80/te          T ssfdb021: 80/te
+T ssfd022: 80/te          T ssfdb022: 80/te         T ssfd031: 80/te
+T ssfdb031: 80/te         T ssfd032: 80/te          T ssfdb032: 80/te
+T ssfd051: 80/te          T ssfdb051: 80/te         T ssfd052: 80/te
+T ssfdb052: 80/te         T ssfd053: 80/te          T ssfdb053: 80/te
+T ssfd061: 80/te          T ssfdb061: 80/te         T ssfd062: 80/te
+T ssfdb062: 80/te         T ssfd071: 80/te          T ssfdb071: 80/te
+T ssfd072: 80/te          T ssfdb072: 80/te         T ssfd081: 80/te
+T ssfdb081: 80/te         T ssfd082: 80/te          T ssfdb082: 80/te
+T ssfd091: 80/te          T ssfdb091: 80/te         T ssfd092: 80/te
+T ssfdb092: 80/te         T ssfd101: 80/te          T ssfdb101: 80/te
+T ssfd111: 80/te          T ssfdb111: 80/te         T ssfd112: 80/te
+T ssfdb112: 80/te         T ssfd113: 80/te          T ssfdb113: 80/te
+T ssfd121: 80/te          T ssfdb121: 80/te         T lb1: 900/te
+T lb2: 900/te             T lb3: 900/te             T lb4: 900/te
+T lb5: 900/te             T lb6: 900/te             T lb7: 900/te
+T lb8: 900/te             T lb9: 900/te             T lb10: 900/te
+T nalb1: 100/te           T nalb2: 100/te           T nalb3: 100/te
+T nalb4: 100/te           T nalb5: 100/te           T nalb6: 100/te
+T nalb7: 100/te           T nalb8: 100/te           T nalb9: 100/te
+T nalb10: 100/te          T fd011: 60/te            T fd021: 60/te
+T fd022: 60/te            T fd031: 60/te            T fd032: 60/te
+T fd051: 60/te            T fd052: 60/te            T fd053: 60/te
+T fd061: 60/te            T fd062: 60/te            T fd071: 60/te
+T fd072: 60/te            T fd081: 60/te            T fd082: 60/te
+T fd091: 60/te            T fd092: 60/te            T fd101: 60/te
+T fd111: 60/te            T fd112: 60/te            T fd113: 60/te
+T fd121: 60/te            T dh012: 5/te             T dh023: 5/te
+T dh024: 5/te             T dh033: 5/te             T dh034: 5/te
+T dh054: 5/te             T dh055: 5/te             T dh056: 5/te
+T dh073: 5/te             T dh074: 5/te             T dh083: 5/te
+T dh084: 5/te             T dh093: 5/te             T dh102: 5/te
+T dh114: 5/te             T dh115: 5/te             T dh116: 5/te
+T dh122: 5/te             T dh063: 5/te             T dh064: 5/te
+T dh094: 5/te             T in02: 20/te             T uit02: 20/te
+T in05: 20/te             T uit05: 20/te            T in06: 20/te
+T uit06: 20/te            T in08: 20/te             T uit08: 20/te
+T in11: 20/te             T uit11: 20/te            T file_bewd103: 30/tm
+T file_bewd117: 30/tm     T file_bewd118: 30/tm     T file_bewd119: 30/tm
+T file_bewd123: 30/tm     T vgact02: 999/te         T vgact05: 999/te
+T vgact08: 999/te         T vgact11: 999/te         
+
+C VC01: 999/ct            C VC02: 999/ct            C VC03: 999/ct
+C VC05: 999/ct            C VC06: 999/ct            C VC08: 999/ct
+C VC11: 999/ct            
+
+SCH CA01: 0/sw            SCH CA02: 0/sw            SCH CA03: 0/sw
+SCH CA05: 0/sw            SCH CA06: 0/sw            SCH CA07: 0/sw
+SCH CA08: 0/sw            SCH CA09: 0/sw            SCH CA10: 0/sw
+SCH CA11: 0/sw            SCH CA12: 0/sw            SCH CA24: 0/sw
+SCH CA26: 0/sw            SCH CA28: 0/sw            SCH CA32: 0/sw
+SCH CA33: 0/sw            SCH CA34: 0/sw            SCH CA35: 0/sw
+SCH CA36: 0/sw            SCH CA37: 0/sw            SCH CA38: 0/sw
+SCH CA60: 0/sw            SCH WG01: 0/sw            SCH WG02: 0/sw
+SCH WG03: 0/sw            SCH WG05: 0/sw            SCH WG06: 0/sw
+SCH WG07: 0/sw            SCH WG08: 0/sw            SCH WG09: 0/sw
+SCH WG10: 0/sw            SCH WG11: 0/sw            SCH WG12: 0/sw
+SCH WG24: 0/sw            SCH WG26: 0/sw            SCH WG28: 0/sw
+SCH WG32: 0/sw            SCH WG33: 0/sw            SCH WG34: 0/sw
+SCH WG35: 0/sw            SCH WG36: 0/sw            SCH WG37: 0/sw
+SCH WG38: 0/sw            SCH WG60: 0/sw            SCH MV01: 1/sw
+SCH MV02: 1/sw            SCH MV03: 1/sw            SCH MV05: 1/sw
+SCH MV06: 1/sw            SCH MV07: 1/sw            SCH MV08: 1/sw
+SCH MV09: 1/sw            SCH MV10: 1/sw            SCH MV11: 1/sw
+SCH MV12: 1/sw            SCH MV24: 1/sw            SCH MV26: 1/sw
+SCH MV28: 1/sw            SCH MV32: 0/sw            SCH MV33: 0/sw
+SCH MV34: 0/sw            SCH MV35: 0/sw            SCH MV36: 0/sw
+SCH MV37: 0/sw            SCH MV38: 0/sw            SCH MV60: 0/sw
+SCH ALTG01: 1/sw          SCH ALTG02: 1/sw          SCH ALTG03: 1/sw
+SCH ALTG05: 1/sw          SCH ALTG06: 1/sw          SCH ALTG07: 1/sw
+SCH ALTG08: 1/sw          SCH ALTG09: 1/sw          SCH ALTG10: 1/sw
+SCH ALTG11: 1/sw          SCH ALTG12: 1/sw          SCH ALTG24: 1/sw
+SCH ALTG26: 1/sw          SCH ALTG28: 1/sw          SCH ALTG32: 1/sw
+SCH ALTG33: 1/sw          SCH ALTG34: 1/sw          SCH ALTG35: 1/sw
+SCH ALTG36: 1/sw          SCH ALTG37: 1/sw          SCH ALTG38: 1/sw
+SCH ALTG60: 1/sw          SCH DVAK011: 0/sw         SCH DVAK012: 0/sw
+SCH DVAK021: 0/sw         SCH DVAK022: 0/sw         SCH DVAK023: 0/sw
+SCH DVAK024: 0/sw         SCH DVAK031: 0/sw         SCH DVAK032: 0/sw
+SCH DVAK033: 0/sw         SCH DVAK034: 0/sw         SCH DVAK051: 0/sw
+SCH DVAK052: 0/sw         SCH DVAK053: 0/sw         SCH DVAK054: 0/sw
+SCH DVAK055: 0/sw         SCH DVAK056: 0/sw         SCH DVAK061: 0/sw
+SCH DVAK062: 0/sw         SCH DVAK063: 0/sw         SCH DVAK064: 0/sw
+SCH DVAK071: 0/sw         SCH DVAK072: 0/sw         SCH DVAK073: 0/sw
+SCH DVAK074: 0/sw         SCH DVAK081: 0/sw         SCH DVAK082: 0/sw
+SCH DVAK083: 0/sw         SCH DVAK084: 0/sw         SCH DVAK091: 0/sw
+SCH DVAK092: 0/sw         SCH DVAK093: 0/sw         SCH DVAK094: 0/sw
+SCH DVAK101: 0/sw         SCH DVAK102: 0/sw         SCH DVAK111: 0/sw
+SCH DVAK112: 0/sw         SCH DVAK113: 0/sw         SCH DVAK114: 0/sw
+SCH DVAK115: 0/sw         SCH DVAK116: 0/sw         SCH DVAK121: 0/sw
+SCH DVAK122: 0/sw         SCH DVAK241: 0/sw         SCH DVAK242: 0/sw
+SCH DVAK261: 0/sw         SCH DVAK262: 0/sw         SCH DVAK281: 0/sw
+SCH DVAK282: 0/sw         SCH DVAF24: 0/sw          SCH DVAF26: 0/sw
+SCH DVAF28: 0/sw          SCH DVVG32: 0/sw          SCH DVVG34: 0/sw
+SCH DVVG36: 0/sw          SCH DVVG37: 0/sw          SCH DVVG38: 0/sw
+SCH DVVG60: 0/sw          SCH BMFIX: 1/sw           SCH UPINAGB01: 0/sw
+SCH UPINAGB02: 0/sw       SCH UPINAGB03: 0/sw       SCH UPINAGB05: 0/sw
+SCH UPINAGB06: 0/sw       SCH UPINAGB08: 0/sw       SCH UPINAGB11: 0/sw
+SCH rt: 1/sw              SCH dsi: 1/sw             SCH dsi_test: 1/sw
+SCH rtdim: 0/sw           SCH rt38: 1/sw            SCH cycl: 1/sw
+SCH cycl_reset: 1/sw      SCH cov: 1/sw             SCH rgv: 1/sw
+SCH rgvsnel: 1/sw         SCH rgvterm: 1/sw         SCH dvm: 0/sw
+SCH dvm_kick: 0/sw        SCH dvm_alt_hiaat: 0/sw   SCH dvm_dos_rgv: 1/sw
+SCH dvm_term: 1/sw        SCH opdr01: 0/sw          SCH ss_file01: 0/sw
+SCH ss_file_al_str01: 0/swSCH opdr02: 0/sw          SCH ss_file02: 0/sw
+SCH ss_file_al_str02: 0/swSCH opdr03: 0/sw          SCH ss_file03: 0/sw
+SCH ss_file_al_str03: 0/swSCH opdr05: 0/sw          SCH ss_file05: 0/sw
+SCH ss_file_al_str05: 0/swSCH opdr06: 1/sw          SCH ss_file06: 0/sw
+SCH ss_file_al_str06: 0/swSCH opdr07: 1/sw          SCH ss_file07: 0/sw
+SCH ss_file_al_str07: 0/swSCH opdr08: 0/sw          SCH ss_file08: 0/sw
+SCH ss_file_al_str08: 0/swSCH opdr09: 0/sw          SCH ss_file09: 0/sw
+SCH ss_file_al_str09: 0/swSCH opdr10: 0/sw          SCH ss_file10: 0/sw
+SCH ss_file_al_str10: 0/swSCH opdr11: 0/sw          SCH ss_file11: 0/sw
+SCH ss_file_al_str11: 0/swSCH opdr12: 0/sw          SCH ss_file12: 0/sw
+SCH ss_file_al_str12: 0/swSCH ssfd011: 0/sw         SCH ssfd021: 0/sw
+SCH ssfd022: 0/sw         SCH ssfd031: 0/sw         SCH ssfd032: 0/sw
+SCH ssfd051: 0/sw         SCH ssfd052: 0/sw         SCH ssfd053: 0/sw
+SCH ssfd061: 0/sw         SCH ssfd062: 0/sw         SCH ssfd071: 0/sw
+SCH ssfd072: 0/sw         SCH ssfd081: 0/sw         SCH ssfd082: 0/sw
+SCH ssfd091: 0/sw         SCH ssfd092: 0/sw         SCH ssfd101: 0/sw
+SCH ssfd111: 0/sw         SCH ssfd112: 0/sw         SCH ssfd113: 0/sw
+SCH ssfd121: 0/sw         SCH lb1: 1/sw             SCH lb2: 1/sw
+SCH lb3: 1/sw             SCH lb4: 1/sw             SCH lb5: 1/sw
+SCH lb6: 0/sw             SCH lb7: 0/sw             SCH lb8: 0/sw
+SCH lb9: 0/sw             SCH lb10: 0/sw            SCH lb: 0/sw
+SCH lb1a: 0/sw            SCH lb2a: 0/sw            SCH lb3a: 0/sw
+SCH lb4a: 0/sw            SCH lb5a: 0/sw            SCH lb6a: 0/sw
+SCH lb7a: 0/sw            SCH lb8a: 0/sw            SCH lb9a: 0/sw
+SCH lb10a: 0/sw           SCH lbcontinue: 0/sw      SCH lballeenmeta: 0/sw
+SCH eindlbg: 0/sw         SCH eindlbgmk: 0/sw       SCH hdoverlb: 1/sw
+SCH geenrwinlb: 1/sw      SCH fbvlog: 1/sw          SCH file2uber: 0/sw
+SCH mon2uber: 0/sw        SCH rgvfc02mk: 1/sw       SCH rgvfc03mk: 1/sw
+SCH rgvfc05mk: 1/sw       SCH rgvfc06mk: 1/sw       SCH rgvfc07mk: 1/sw
+SCH rgvfc08mk: 1/sw       SCH rgvfc09mk: 1/sw       SCH rgvfc11mk: 1/sw
+SCH ma333424: 1/sw        SCH ma353626: 1/sw        SCH ma373828: 1/sw
+SCH dvakk241: 0/sw        SCH dvakk261: 0/sw        SCH dvakk281: 0/sw
+SCH vav3233: 1/sw         SCH vav3234: 1/sw         SCH vav3334: 1/sw
+SCH vav3332: 1/sw         SCH vav3433: 1/sw         SCH vav3432: 1/sw
+SCH vav3536: 1/sw         SCH vav3560: 1/sw         SCH vav3635: 1/sw
+SCH vav3660: 1/sw         SCH vav6035: 1/sw         SCH vav6036: 1/sw
+SCH vav3738: 1/sw         SCH vav3837: 1/sw         SCH ovrfd103: 0/sw
+SCH ovrfd117: 0/sw        SCH ovrfd118: 0/sw        SCH ovrfd119: 0/sw
+SCH ovrfd123: 0/sw        SCH filed103: 1/sw        SCH filed117: 1/sw
+SCH filed118: 1/sw        SCH filed119: 1/sw        SCH filed123: 1/sw
+SCH vtgkapdal: 0/sw       SCH vtgkaposp: 1/sw       SCH vtgkapasp: 1/sw
+SCH vtgkapzat: 1/sw       SCH vtgkapzon: 1/sw       SCH vtgkapkav: 1/sw
+SCH maxtarovfix: 1/sw     
+
+PRM FB: 241/ts            PRM D011: 1               PRM D012: 1
+PRM D021: 1               PRM D022: 1               PRM D023: 1
+PRM D024: 1               PRM D031: 1               PRM D032: 1
+PRM D033: 1               PRM D034: 1               PRM D051: 1
+PRM D052: 1               PRM D053: 1               PRM D054: 1
+PRM D055: 1               PRM D056: 1               PRM D061: 1
+PRM D062: 1               PRM D063: 1               PRM D064: 1
+PRM D071: 1               PRM D072: 1               PRM D073: 1
+PRM D074: 1               PRM D081: 1               PRM D082: 1
+PRM D083: 1               PRM D084: 1               PRM D091: 1
+PRM D092: 1               PRM D093: 1               PRM D094: 1
+PRM D101: 1               PRM D102: 1               PRM D111: 1
+PRM D112: 1               PRM D113: 1               PRM D114: 1
+PRM D115: 1               PRM D116: 1               PRM D121: 1
+PRM D122: 1               PRM D241: 1               PRM D242: 1
+PRM DK241: 3              PRM D261: 1               PRM D262: 1
+PRM DK261: 3              PRM D281: 1               PRM D282: 1
+PRM DK281: 3              PRM DK321: 3              PRM DK322: 3
+PRM DK341: 3              PRM DK342: 3              PRM DK361: 3
+PRM DK362: 3              PRM DK371: 3              PRM DK372: 3
+PRM DK381: 3              PRM DK382: 3              PRM DK601: 3
+PRM DK602: 3              PRM VG1_01: 100/te        PRM VG1_02: 300/te
+PRM VG1_03: 150/te        PRM VG1_05: 400/te        PRM VG1_06: 300/te
+PRM VG1_07: 300/te        PRM VG1_08: 300/te        PRM VG1_09: 300/te
+PRM VG1_10: 340/te        PRM VG1_11: 400/te        PRM VG1_12: 100/te
+PRM VG1_24: 100/te        PRM VG1_26: 100/te        PRM VG1_28: 100/te
+PRM VG2_01: 200/te        PRM VG2_02: 200/te        PRM VG2_03: 100/te
+PRM VG2_05: 300/te        PRM VG2_06: 300/te        PRM VG2_07: 250/te
+PRM VG2_08: 250/te        PRM VG2_09: 150/te        PRM VG2_10: 150/te
+PRM VG2_11: 250/te        PRM VG2_12: 250/te        PRM VG2_24: 100/te
+PRM VG2_26: 100/te        PRM VG2_28: 100/te        PRM VG3_01: 150/te
+PRM VG3_02: 150/te        PRM VG3_03: 150/te        PRM VG3_05: 300/te
+PRM VG3_06: 250/te        PRM VG3_07: 250/te        PRM VG3_08: 200/te
+PRM VG3_09: 200/te        PRM VG3_10: 150/te        PRM VG3_11: 250/te
+PRM VG3_12: 200/te        PRM VG3_24: 100/te        PRM VG3_26: 100/te
+PRM VG3_28: 100/te        PRM VG4_01: 100/te        PRM VG4_02: 300/te
+PRM VG4_03: 150/te        PRM VG4_05: 400/te        PRM VG4_06: 300/te
+PRM VG4_07: 300/te        PRM VG4_08: 300/te        PRM VG4_09: 300/te
+PRM VG4_10: 340/te        PRM VG4_11: 400/te        PRM VG4_12: 100/te
+PRM VG4_24: 100/te        PRM VG4_26: 100/te        PRM VG4_28: 100/te
+PRM VG5_01: 100/te        PRM VG5_02: 300/te        PRM VG5_03: 150/te
+PRM VG5_05: 400/te        PRM VG5_06: 300/te        PRM VG5_07: 300/te
+PRM VG5_08: 300/te        PRM VG5_09: 300/te        PRM VG5_10: 340/te
+PRM VG5_11: 400/te        PRM VG5_12: 100/te        PRM VG5_24: 100/te
+PRM VG5_26: 100/te        PRM VG5_28: 100/te        PRM VG6_01: 100/te
+PRM VG6_02: 300/te        PRM VG6_03: 150/te        PRM VG6_05: 400/te
+PRM VG6_06: 300/te        PRM VG6_07: 300/te        PRM VG6_08: 300/te
+PRM VG6_09: 300/te        PRM VG6_10: 340/te        PRM VG6_11: 400/te
+PRM VG6_12: 100/te        PRM VG6_24: 100/te        PRM VG6_26: 100/te
+PRM VG6_28: 100/te        PRM MKD011: 1             PRM MKD012: 3
+PRM MKD021: 1             PRM MKD022: 1             PRM MKD023: 3
+PRM MKD024: 2             PRM MKD031: 1             PRM MKD032: 1
+PRM MKD033: 3             PRM MKD034: 2             PRM MKD051: 1
+PRM MKD052: 1             PRM MKD053: 1             PRM MKD054: 3
+PRM MKD055: 2             PRM MKD056: 2             PRM MKD061: 1
+PRM MKD062: 1             PRM MKD063: 3             PRM MKD064: 2
+PRM MKD071: 1             PRM MKD072: 1             PRM MKD073: 3
+PRM MKD074: 2             PRM MKD081: 1             PRM MKD082: 1
+PRM MKD083: 3             PRM MKD084: 2             PRM MKD091: 1
+PRM MKD092: 1             PRM MKD093: 3             PRM MKD094: 2
+PRM MKD101: 1             PRM MKD102: 3             PRM MKD111: 1
+PRM MKD112: 1             PRM MKD113: 1             PRM MKD114: 3
+PRM MKD115: 2             PRM MKD116: 2             PRM MKD121: 1
+PRM MKD122: 3             PRM MKD241: 1             PRM MKD242: 3
+PRM MKD261: 1             PRM MKD262: 3             PRM MKD281: 1
+PRM MKD282: 3             PRM ALTG01: 60/te         PRM ALTG02: 60/te
+PRM ALTG03: 60/te         PRM ALTG05: 150/te        PRM ALTG06: 150/te
+PRM ALTG07: 150/te        PRM ALTG08: 60/te         PRM ALTG09: 150/te
+PRM ALTG10: 60/te         PRM ALTG11: 150/te        PRM ALTG12: 60/te
+PRM ALTG24: 60/te         PRM ALTG26: 60/te         PRM ALTG28: 60/te
+PRM ALTG32: 60/te         PRM ALTG33: 60/te         PRM ALTG34: 60/te
+PRM ALTG35: 60/te         PRM ALTG36: 60/te         PRM ALTG37: 60/te
+PRM ALTG38: 60/te         PRM ALTG60: 60/te         PRM ALTP01: 60/te
+PRM ALTP02: 60/te         PRM ALTP03: 60/te         PRM ALTP05: 150/te
+PRM ALTP06: 150/te        PRM ALTP07: 150/te        PRM ALTP08: 60/te
+PRM ALTP09: 150/te        PRM ALTP10: 60/te         PRM ALTP11: 150/te
+PRM ALTP12: 60/te         PRM ALTP24: 60/te         PRM ALTP26: 60/te
+PRM ALTP28: 60/te         PRM ALTP32: 60/te         PRM ALTP33: 60/te
+PRM ALTP34: 60/te         PRM ALTP35: 60/te         PRM ALTP36: 60/te
+PRM ALTP37: 60/te         PRM ALTP38: 60/te         PRM ALTP60: 60/te
+PRM MLFPR01: 1/ct         PRM MLFPR02: 1/ct         PRM MLFPR03: 1/ct
+PRM MLFPR05: 1/ct         PRM MLFPR06: 1/ct         PRM MLFPR07: 1/ct
+PRM MLFPR08: 1/ct         PRM MLFPR09: 1/ct         PRM MLFPR10: 1/ct
+PRM MLFPR11: 1/ct         PRM MLFPR12: 1/ct         PRM MLFPR24: 1/ct
+PRM MLFPR26: 1/ct         PRM MLFPR28: 1/ct         PRM MLFPR32: 1/ct
+PRM MLFPR33: 1/ct         PRM MLFPR34: 1/ct         PRM MLFPR35: 1/ct
+PRM MLFPR36: 1/ct         PRM MLFPR37: 1/ct         PRM MLFPR38: 1/ct
+PRM MLFPR60: 1/ct         PRM STKP1: 700/ti         PRM ETKP1: 930/ti
+PRM DCKP1: 8              PRM STKP2: 1600/ti        PRM ETKP2: 1900/ti
+PRM DCKP2: 8              PRM STKP3: 0/ti           PRM ETKP3: 2400/ti
+PRM DCKP3: 6              PRM STKP4: 0/ti           PRM ETKP4: 2400/ti
+PRM DCKP4: 7              PRM STKP5: 1800/ti        PRM ETKP5: 2130/ti
+PRM DCKP5: 4              PRM NOFM01: 0/ct          PRM NOFM02: 0/ct
+PRM NOFM03: 0/ct          PRM NOFM05: 0/ct          PRM NOFM06: 0/ct
+PRM NOFM07: 0/ct          PRM NOFM08: 0/ct          PRM NOFM09: 0/ct
+PRM NOFM10: 0/ct          PRM NOFM11: 0/ct          PRM NOFM12: 0/ct
+PRM NOFM24: 0/ct          PRM NOFM26: 0/ct          PRM NOFM28: 0/ct
+PRM MGCOV01: 0/te         PRM MGCOV02: 0/te         PRM MGCOV03: 0/te
+PRM MGCOV05: 150/te       PRM MGCOV06: 150/te       PRM MGCOV07: 150/te
+PRM MGCOV08: 0/te         PRM MGCOV09: 150/te       PRM MGCOV10: 150/te
+PRM MGCOV11: 150/te       PRM MGCOV12: 0/te         PRM MGCOV24: 0/te
+PRM MGCOV26: 0/te         PRM MGCOV28: 0/te         PRM PMGCOV01: 0
+PRM PMGCOV02: 0           PRM PMGCOV03: 0           PRM PMGCOV05: 0
+PRM PMGCOV06: 0           PRM PMGCOV07: 0           PRM PMGCOV08: 0
+PRM PMGCOV09: 0           PRM PMGCOV10: 0           PRM PMGCOV11: 0
+PRM PMGCOV12: 0           PRM PMGCOV24: 0           PRM PMGCOV26: 0
+PRM PMGCOV28: 0           PRM PMGT01: 0             PRM PMGT02: 0
+PRM PMGT03: 0             PRM PMGT05: 0             PRM PMGT06: 0
+PRM PMGT07: 0             PRM PMGT08: 0             PRM PMGT09: 0
+PRM PMGT10: 0             PRM PMGT11: 0             PRM PMGT12: 0
+PRM PMGT24: 0             PRM PMGT26: 0             PRM PMGT28: 0
+PRM PMGT32: 0             PRM PMGT33: 0             PRM PMGT34: 0
+PRM PMGT35: 0             PRM PMGT36: 0             PRM PMGT37: 0
+PRM PMGT38: 0             PRM PMGT60: 0             PRM OGNT01: 60/te
+PRM OGNT02: 60/te         PRM OGNT03: 60/te         PRM OGNT05: 60/te
+PRM OGNT06: 60/te         PRM OGNT07: 60/te         PRM OGNT08: 60/te
+PRM OGNT09: 60/te         PRM OGNT10: 60/te         PRM OGNT11: 60/te
+PRM OGNT12: 60/te         PRM OGNT24: 60/te         PRM OGNT26: 60/te
+PRM OGNT28: 60/te         PRM OGNT32: 60/te         PRM OGNT33: 60/te
+PRM OGNT34: 60/te         PRM OGNT35: 60/te         PRM OGNT36: 60/te
+PRM OGNT37: 60/te         PRM OGNT38: 60/te         PRM OGNT60: 60/te
+PRM OMX01: 0/te           PRM OMX02: 0/te           PRM OMX03: 0/te
+PRM OMX05: 0/te           PRM OMX06: 0/te           PRM OMX08: 0/te
+PRM OMX11: 0/te           PRM RTO01: 150/te         PRM RTO02: 150/te
+PRM RTO03: 150/te         PRM RTO05: 150/te         PRM RTO06: 150/te
+PRM RTO08: 100/te         PRM RTO11: 130/te         PRM RTBG01: 0/te
+PRM RTBG02: 0/te          PRM RTBG03: 0/te          PRM RTBG05: 0/te
+PRM RTBG06: 0/te          PRM RTBG08: 0/te          PRM RTBG11: 0/te
+PRM RTG01: 0/te           PRM RTG02: 0/te           PRM RTG03: 0/te
+PRM RTG05: 0/te           PRM RTG06: 0/te           PRM RTG08: 0/te
+PRM RTG11: 0/te           PRM MWTA: 140/ts          PRM MWTFTS: 140/ts
+PRM MWTVTG: 140/ts        PRM PRIO01: 0             PRM PRIO02: 123
+PRM PRIO03: 0             PRM PRIO05: 123           PRM PRIO06: 123
+PRM PRIO08: 123           PRM PRIO11: 123           PRM OHPMG01: 0
+PRM OHPMG02: 0            PRM OHPMG03: 0            PRM OHPMG05: 0
+PRM OHPMG06: 0            PRM OHPMG07: 0            PRM OHPMG08: 0
+PRM OHPMG09: 0            PRM OHPMG10: 0            PRM OHPMG11: 0
+PRM OHPMG12: 0            PRM OHPMG24: 0            PRM OHPMG26: 0
+PRM OHPMG28: 0            PRM OHPMG32: 0            PRM OHPMG33: 0
+PRM OHPMG34: 0            PRM OHPMG35: 0            PRM OHPMG36: 0
+PRM OHPMG37: 0            PRM OHPMG38: 0            PRM OHPMG60: 0
+PRM PERC: 65              PRM MAXTVG: 5/ct          PRM MAXTFB: 120/ts
+PRM klokrtschstart: 700/tiPRM klokrtscheinde: 2230/tiPRM klokrtschdag: 10/ct
+PRM klokrtdim1start: 1900/tiPRM klokrtdim1einde: 700/tiPRM klokrtdim1dag: 8/ct
+PRM klokrtdim2start: 1900/tiPRM klokrtdim2einde: 900/tiPRM klokrtdim2dag: 6/ct
+PRM klokrtdim3start: 1900/tiPRM klokrtdim3einde: 1000/tiPRM klokrtdim3dag: 7/ct
+PRM rgv: 1/ct             PRM min_tcyclus: 400/te   PRM max_tcyclus: 1200/te
+PRM tvg_omhoog: 50/te     PRM tvg_omlaag: 20/te     PRM tvg_verschil: 20/te
+PRM tvg_npr_omlaag: 50/te PRM dvmversie: 0/ct       PRM vg_overrule: 0/ct
+PRM prioset: 0/ct         PRM debug_set_lb: 0/ct    PRM vg7_01: 50/te
+PRM vg8_01: 150/te        PRM vg9_01: 0/te          PRM vg10_01: 0/te
+PRM vg11_01: 0/te         PRM vg12_01: 50/te        PRM bijstelperc01: 100/ct
+PRM doseerperc01: 0/ct    PRM minrood01: 0/ct       PRM ss_file01stop1: 1/ct
+PRM ss_file01stop2: 999/ctPRM ss_file01stop3: 999/ctPRM ss_file01stop4: 999/ct
+PRM ss_file01stop5: 999/ctPRM vg7_02: 50/te         PRM vg8_02: 150/te
+PRM vg9_02: 0/te          PRM vg10_02: 0/te         PRM vg11_02: 0/te
+PRM vg12_02: 0/te         PRM bijstelperc02: 100/ct PRM doseerperc02: 0/ct
+PRM minrood02: 0/ct       PRM ss_file02stop1: 2/ct  PRM ss_file02stop2: 999/ct
+PRM ss_file02stop3: 999/ctPRM ss_file02stop4: 999/ctPRM ss_file02stop5: 999/ct
+PRM vg7_03: 50/te         PRM vg8_03: 50/te         PRM vg9_03: 0/te
+PRM vg10_03: 0/te         PRM vg11_03: 0/te         PRM vg12_03: 50/te
+PRM bijstelperc03: 100/ct PRM doseerperc03: 0/ct    PRM minrood03: 0/ct
+PRM ss_file03stop1: 3/ct  PRM ss_file03stop2: 999/ctPRM ss_file03stop3: 999/ct
+PRM ss_file03stop4: 999/ctPRM ss_file03stop5: 999/ctPRM vg7_05: 50/te
+PRM vg8_05: 300/te        PRM vg9_05: 600/te        PRM vg10_05: 600/te
+PRM vg11_05: 0/te         PRM vg12_05: 50/te        PRM bijstelperc05: 100/ct
+PRM doseerperc05: 0/ct    PRM minrood05: 0/ct       PRM ss_file05stop1: 5/ct
+PRM ss_file05stop2: 999/ctPRM ss_file05stop3: 999/ctPRM ss_file05stop4: 999/ct
+PRM ss_file05stop5: 999/ctPRM vg7_06: 500/te        PRM vg8_06: 300/te
+PRM vg9_06: 0/te          PRM vg10_06: 400/te       PRM vg11_06: 0/te
+PRM vg12_06: 50/te        PRM bijstelperc06: 100/ct PRM doseerperc06: 0/ct
+PRM minrood06: 0/ct       PRM ss_file06stop1: 6/ct  PRM ss_file06stop2: 999/ct
+PRM ss_file06stop3: 999/ctPRM ss_file06stop4: 999/ctPRM ss_file06stop5: 999/ct
+PRM vg7_07: 50/te         PRM vg8_07: 500/te        PRM vg9_07: 0/te
+PRM vg10_07: 0/te         PRM vg11_07: 0/te         PRM vg12_07: 50/te
+PRM bijstelperc07: 100/ct PRM doseerperc07: 0/ct    PRM minrood07: 0/ct
+PRM ss_file07stop1: 7/ct  PRM ss_file07stop2: 999/ctPRM ss_file07stop3: 999/ct
+PRM ss_file07stop4: 999/ctPRM ss_file07stop5: 999/ctPRM vg7_08: 50/te
+PRM vg8_08: 500/te        PRM vg9_08: 0/te          PRM vg10_08: 0/te
+PRM vg11_08: 0/te         PRM vg12_08: 50/te        PRM bijstelperc08: 100/ct
+PRM doseerperc08: 0/ct    PRM minrood08: 0/ct       PRM ss_file08stop1: 8/ct
+PRM ss_file08stop2: 999/ctPRM ss_file08stop3: 999/ctPRM ss_file08stop4: 999/ct
+PRM ss_file08stop5: 999/ctPRM vg7_09: 50/te         PRM vg8_09: 500/te
+PRM vg9_09: 0/te          PRM vg10_09: 0/te         PRM vg11_09: 0/te
+PRM vg12_09: 50/te        PRM bijstelperc09: 100/ct PRM doseerperc09: 0/ct
+PRM minrood09: 0/ct       PRM ss_file09stop1: 9/ct  PRM ss_file09stop2: 999/ct
+PRM ss_file09stop3: 999/ctPRM ss_file09stop4: 999/ctPRM ss_file09stop5: 999/ct
+PRM vg7_10: 50/te         PRM vg8_10: 340/te        PRM vg9_10: 300/te
+PRM vg10_10: 0/te         PRM vg11_10: 300/te       PRM vg12_10: 500/te
+PRM bijstelperc10: 100/ct PRM doseerperc10: 0/ct    PRM minrood10: 0/ct
+PRM ss_file10stop1: 10/ct PRM ss_file10stop2: 999/ctPRM ss_file10stop3: 999/ct
+PRM ss_file10stop4: 999/ctPRM ss_file10stop5: 999/ctPRM vg7_11: 50/te
+PRM vg8_11: 200/te        PRM vg9_11: 600/te        PRM vg10_11: 0/te
+PRM vg11_11: 600/te       PRM vg12_11: 500/te       PRM bijstelperc11: 100/ct
+PRM doseerperc11: 0/ct    PRM minrood11: 0/ct       PRM ss_file11stop1: 11/ct
+PRM ss_file11stop2: 999/ctPRM ss_file11stop3: 999/ctPRM ss_file11stop4: 999/ct
+PRM ss_file11stop5: 999/ctPRM vg7_12: 50/te         PRM vg8_12: 200/te
+PRM vg9_12: 200/te        PRM vg10_12: 0/te         PRM vg11_12: 250/te
+PRM vg12_12: 50/te        PRM bijstelperc12: 100/ct PRM doseerperc12: 0/ct
+PRM minrood12: 0/ct       PRM ss_file12stop1: 12/ct PRM ss_file12stop2: 999/ct
+PRM ss_file12stop3: 999/ctPRM ss_file12stop4: 999/ctPRM ss_file12stop5: 999/ct
+PRM prio2fc02: 123/ct     PRM prio3fc02: 123/ct     PRM prio2fc05: 123/ct
+PRM prio3fc05: 123/ct     PRM prio2fc06: 123/ct     PRM prio3fc06: 123/ct
+PRM prio2fc08: 123/ct     PRM prio3fc08: 123/ct     PRM prio2fc11: 123/ct
+PRM prio3fc11: 123/ct     PRM lb1fc1: 5/ct          PRM lb1fc2: 11/ct
+PRM lb1fc3: 26/ct         PRM lb1fc4: 35/ct         PRM lb1fc5: 36/ct
+PRM lb1fc6: 60/ct         PRM lb1fc7: 999/ct        PRM lb1fc8: 999/ct
+PRM lb1fc9: 999/ct        PRM lb1fc10: 999/ct       PRM lb1fc1bijkomen: 999/ct
+PRM lb1fc2bijkomen: 999/ctPRM lb1fc3bijkomen: 999/ctPRM lb1fc4bijkomen: 999/ct
+PRM lb1fc5bijkomen: 999/ctPRM lb1fc6bijkomen: 999/ctPRM lb1fc7bijkomen: 999/ct
+PRM lb1fc8bijkomen: 999/ctPRM lb1fc9bijkomen: 999/ctPRM lb1fc10bijkomen: 999/ct
+PRM lb2fc1: 1/ct          PRM lb2fc2: 6/ct          PRM lb2fc3: 7/ct
+PRM lb2fc4: 12/ct         PRM lb2fc5: 999/ct        PRM lb2fc6: 999/ct
+PRM lb2fc7: 999/ct        PRM lb2fc8: 999/ct        PRM lb2fc9: 999/ct
+PRM lb2fc10: 999/ct       PRM lb2fc1bijkomen: 999/ctPRM lb2fc2bijkomen: 999/ct
+PRM lb2fc3bijkomen: 999/ctPRM lb2fc4bijkomen: 999/ctPRM lb2fc5bijkomen: 999/ct
+PRM lb2fc6bijkomen: 999/ctPRM lb2fc7bijkomen: 999/ctPRM lb2fc8bijkomen: 999/ct
+PRM lb2fc9bijkomen: 999/ctPRM lb2fc10bijkomen: 999/ctPRM lb3fc1: 2/ct
+PRM lb3fc2: 8/ct          PRM lb3fc3: 24/ct         PRM lb3fc4: 28/ct
+PRM lb3fc5: 32/ct         PRM lb3fc6: 33/ct         PRM lb3fc7: 34/ct
+PRM lb3fc8: 37/ct         PRM lb3fc9: 38/ct         PRM lb3fc10: 999/ct
+PRM lb3fc1bijkomen: 999/ctPRM lb3fc2bijkomen: 999/ctPRM lb3fc3bijkomen: 999/ct
+PRM lb3fc4bijkomen: 999/ctPRM lb3fc5bijkomen: 999/ctPRM lb3fc6bijkomen: 999/ct
+PRM lb3fc7bijkomen: 999/ctPRM lb3fc8bijkomen: 999/ctPRM lb3fc9bijkomen: 999/ct
+PRM lb3fc10bijkomen: 999/ctPRM lb4fc1: 3/ct          PRM lb4fc2: 9/ct
+PRM lb4fc3: 10/ct         PRM lb4fc4: 999/ct        PRM lb4fc5: 999/ct
+PRM lb4fc6: 999/ct        PRM lb4fc7: 999/ct        PRM lb4fc8: 999/ct
+PRM lb4fc9: 999/ct        PRM lb4fc10: 999/ct       PRM lb4fc1bijkomen: 999/ct
+PRM lb4fc2bijkomen: 999/ctPRM lb4fc3bijkomen: 999/ctPRM lb4fc4bijkomen: 999/ct
+PRM lb4fc5bijkomen: 999/ctPRM lb4fc6bijkomen: 999/ctPRM lb4fc7bijkomen: 999/ct
+PRM lb4fc8bijkomen: 999/ctPRM lb4fc9bijkomen: 999/ctPRM lb4fc10bijkomen: 999/ct
+PRM lb5fc1: 1/ct          PRM lb5fc2: 2/ct          PRM lb5fc3: 3/ct
+PRM lb5fc4: 999/ct        PRM lb5fc5: 999/ct        PRM lb5fc6: 999/ct
+PRM lb5fc7: 999/ct        PRM lb5fc8: 999/ct        PRM lb5fc9: 999/ct
+PRM lb5fc10: 999/ct       PRM lb5fc1bijkomen: 999/ctPRM lb5fc2bijkomen: 999/ct
+PRM lb5fc3bijkomen: 999/ctPRM lb5fc4bijkomen: 999/ctPRM lb5fc5bijkomen: 999/ct
+PRM lb5fc6bijkomen: 999/ctPRM lb5fc7bijkomen: 999/ctPRM lb5fc8bijkomen: 999/ct
+PRM lb5fc9bijkomen: 999/ctPRM lb5fc10bijkomen: 999/ctPRM lb6fc1: 5/ct
+PRM lb6fc2: 6/ct          PRM lb6fc3: 999/ct        PRM lb6fc4: 999/ct
+PRM lb6fc5: 999/ct        PRM lb6fc6: 999/ct        PRM lb6fc7: 999/ct
+PRM lb6fc8: 999/ct        PRM lb6fc9: 999/ct        PRM lb6fc10: 999/ct
+PRM lb6fc1bijkomen: 7/ct  PRM lb6fc2bijkomen: 999/ctPRM lb6fc3bijkomen: 999/ct
+PRM lb6fc4bijkomen: 999/ctPRM lb6fc5bijkomen: 999/ctPRM lb6fc6bijkomen: 999/ct
+PRM lb6fc7bijkomen: 999/ctPRM lb6fc8bijkomen: 999/ctPRM lb6fc9bijkomen: 999/ct
+PRM lb6fc10bijkomen: 999/ctPRM lb7fc1: 7/ct          PRM lb7fc2: 8/ct
+PRM lb7fc3: 9/ct          PRM lb7fc4: 999/ct        PRM lb7fc5: 999/ct
+PRM lb7fc6: 999/ct        PRM lb7fc7: 999/ct        PRM lb7fc8: 999/ct
+PRM lb7fc9: 999/ct        PRM lb7fc10: 999/ct       PRM lb7fc1bijkomen: 10/ct
+PRM lb7fc2bijkomen: 999/ctPRM lb7fc3bijkomen: 999/ctPRM lb7fc4bijkomen: 999/ct
+PRM lb7fc5bijkomen: 999/ctPRM lb7fc6bijkomen: 999/ctPRM lb7fc7bijkomen: 999/ct
+PRM lb7fc8bijkomen: 999/ctPRM lb7fc9bijkomen: 999/ctPRM lb7fc10bijkomen: 999/ct
+PRM lb8fc1: 10/ct         PRM lb8fc2: 11/ct         PRM lb8fc3: 12/ct
+PRM lb8fc4: 999/ct        PRM lb8fc5: 999/ct        PRM lb8fc6: 999/ct
+PRM lb8fc7: 999/ct        PRM lb8fc8: 999/ct        PRM lb8fc9: 999/ct
+PRM lb8fc10: 999/ct       PRM lb8fc1bijkomen: 1/ct  PRM lb8fc2bijkomen: 999/ct
+PRM lb8fc3bijkomen: 999/ctPRM lb8fc4bijkomen: 999/ctPRM lb8fc5bijkomen: 999/ct
+PRM lb8fc6bijkomen: 999/ctPRM lb8fc7bijkomen: 999/ctPRM lb8fc8bijkomen: 999/ct
+PRM lb8fc9bijkomen: 999/ctPRM lb8fc10bijkomen: 999/ctPRM lb9fc1: 24/ct
+PRM lb9fc2: 26/ct         PRM lb9fc3: 28/ct         PRM lb9fc4: 999/ct
+PRM lb9fc5: 999/ct        PRM lb9fc6: 999/ct        PRM lb9fc7: 999/ct
+PRM lb9fc8: 999/ct        PRM lb9fc9: 999/ct        PRM lb9fc10: 999/ct
+PRM lb9fc1bijkomen: 32/ct PRM lb9fc2bijkomen: 33/ct PRM lb9fc3bijkomen: 34/ct
+PRM lb9fc4bijkomen: 35/ct PRM lb9fc5bijkomen: 36/ct PRM lb9fc6bijkomen: 37/ct
+PRM lb9fc7bijkomen: 38/ct PRM lb9fc8bijkomen: 60/ct PRM lb9fc9bijkomen: 999/ct
+PRM lb9fc10bijkomen: 999/ctPRM lb10fc1: 999/ct       PRM lb10fc2: 999/ct
+PRM lb10fc3: 999/ct       PRM lb10fc4: 999/ct       PRM lb10fc5: 999/ct
+PRM lb10fc6: 999/ct       PRM lb10fc7: 999/ct       PRM lb10fc8: 999/ct
+PRM lb10fc9: 999/ct       PRM lb10fc10: 999/ct      PRM lb10fc1bijkomen: 999/ct
+PRM lb10fc2bijkomen: 999/ctPRM lb10fc3bijkomen: 999/ctPRM lb10fc4bijkomen: 999/ct
+PRM lb10fc5bijkomen: 999/ctPRM lb10fc6bijkomen: 999/ctPRM lb10fc7bijkomen: 999/ct
+PRM lb10fc8bijkomen: 999/ctPRM lb10fc9bijkomen: 999/ctPRM lb10fc10bijkomen: 999/ct
+PRM lb1x1: 255/ct         PRM lb2x1: 255/ct         PRM lb3x1: 255/ct
+PRM lb4x1: 255/ct         PRM lb5x1: 255/ct         PRM lb6x1: 255/ct
+PRM lb7x1: 255/ct         PRM lb8x1: 255/ct         PRM lb9x1: 255/ct
+PRM lb10x1: 255/ct        PRM lb1x2: 225/ct         PRM lb2x2: 225/ct
+PRM lb3x2: 225/ct         PRM lb4x2: 225/ct         PRM lb5x2: 225/ct
+PRM lb6x2: 225/ct         PRM lb7x2: 225/ct         PRM lb8x2: 225/ct
+PRM lb9x2: 225/ct         PRM lb10x2: 225/ct        PRM lb1rr1: 255/ct
+PRM lb2rr1: 255/ct        PRM lb3rr1: 255/ct        PRM lb4rr1: 255/ct
+PRM lb5rr1: 255/ct        PRM lb6rr1: 255/ct        PRM lb7rr1: 255/ct
+PRM lb8rr1: 255/ct        PRM lb9rr1: 255/ct        PRM lb10rr1: 255/ct
+PRM lb1rr2: 241/ct        PRM lb2rr2: 241/ct        PRM lb3rr2: 241/ct
+PRM lb4rr2: 241/ct        PRM lb5rr2: 241/ct        PRM lb6rr2: 241/ct
+PRM lb7rr2: 241/ct        PRM lb8rr2: 241/ct        PRM lb9rr2: 241/ct
+PRM lb10rr2: 241/ct       PRM mintvg01: 50/te       PRM maxtvg01: 400/te
+PRM mintvg02: 50/te       PRM maxtvg02: 400/te      PRM mintvg03: 50/te
+PRM maxtvg03: 400/te      PRM mintvg05: 50/te       PRM maxtvg05: 400/te
+PRM mintvg06: 50/te       PRM maxtvg06: 400/te      PRM mintvg07: 50/te
+PRM maxtvg07: 400/te      PRM mintvg08: 50/te       PRM maxtvg08: 400/te
+PRM mintvg09: 50/te       PRM maxtvg09: 400/te      PRM mintvg10: 50/te
+PRM maxtvg10: 400/te      PRM mintvg11: 50/te       PRM maxtvg11: 400/te
+PRM mintvg12: 50/te       PRM maxtvg12: 400/te      PRM xx: 3/ct
+PRM yy: 0/ct              PRM zz: 1/ct              PRM ma3224: 5/ct
+PRM ma3324: 5/ct          PRM ma3424: 5/ct          PRM ma6026: 5/ct
+PRM ma3526: 5/ct          PRM ma3626: 5/ct          PRM ma3728: 5/ct
+PRM ma3828: 5/ct          PRM ma3233: 5/ct          PRM ma3234: 5/ct
+PRM ma3334: 5/ct          PRM ma3332: 5/ct          PRM ma3432: 5/ct
+PRM ma3433: 5/ct          PRM ma6035: 5/ct          PRM ma6036: 5/ct
+PRM ma3536: 5/ct          PRM ma3560: 5/ct          PRM ma3635: 5/ct
+PRM ma3660: 5/ct          PRM ma3738: 5/ct          PRM ma3837: 5/ct
+PRM ma0607: 3/ct          PRM ma0910: 3/ct          PRM ma1201: 3/ct
+PRM TVG10f103: 0/te       PRM TVG11f117: 0/te       PRM TVG11f118: 0/te
+PRM TVG11f119: 0/te       PRM TVG12f123: 0/te       PRM file_toed103: 35/te
+PRM file_afd103: 75/te    PRM file_bgd103: 70/te    PRM file_ogd103: 60/te
+PRM file_toed117: 35/te   PRM file_afd117: 75/te    PRM file_bgd117: 70/te
+PRM file_ogd117: 60/te    PRM file_toed118: 35/te   PRM file_afd118: 75/te
+PRM file_bgd118: 70/te    PRM file_ogd118: 60/te    PRM file_toed119: 35/te
+PRM file_afd119: 75/te    PRM file_bgd119: 70/te    PRM file_ogd119: 60/te
+PRM file_toed123: 35/te   PRM file_afd123: 75/te    PRM file_bgd123: 70/te
+PRM file_ogd123: 60/te    PRM fperc10op: 150        PRM fperc11op: 150
+PRM fperc12op: 150        PRM 32kap08: 45/te        PRM 33kap08: 30/te
+PRM 34kap08: 35/te        PRM 35kap11: 35/te        PRM 36kap11: 25/te
+PRM 60kap11: 70/te        PRM 37kap02: 110/te       PRM 38kap02: 70/te
+PRM 24kap08: 35/te        PRM 26kap11: 55/te        PRM 28kap02: 50/te
+PRM altb01: 15/ct         PRM altb02: 15/ct         PRM altb03: 15/ct
+PRM altb05: 15/ct         PRM altb06: 15/ct         PRM altb07: 15/ct
+PRM altb08: 15/ct         PRM altb09: 15/ct         PRM altb10: 15/ct
+PRM altb11: 15/ct         PRM altb12: 15/ct         PRM altb24: 15/ct
+PRM altb26: 15/ct         PRM altb28: 15/ct         PRM altb32: 0/ct
+PRM altb33: 0/ct          PRM altb34: 0/ct          PRM altb35: 0/ct
+PRM altb36: 0/ct          PRM altb37: 0/ct          PRM altb38: 0/ct
+PRM altb60: 0/ct          
+
+LOGTYPE DATI: 1/ct        LOGTYPE DP: 1/ct          LOGTYPE IS: 1/ct
+LOGTYPE FC: 47/ct         LOGTYPE US: 3/ct          LOGTYPE PS: 3/ct
+LOGTYPE DS: 3/ct          
+
+LOGPRM VLOGMODE: 4/ct     LOGPRM TIJDIN: 0/ti       LOGPRM DAGIN: 0/dag
+LOGPRM MAANDIN: 0/mnd     LOGPRM JAARIN: 0          LOGPRM TIJDUIT: 0/ti
+LOGPRM DAGUIT: 0/dag      LOGPRM MAANDUIT: 0/mnd    LOGPRM JAARUIT: 0
+LOGPRM LOGKLOKSCH: 1/sw   
+
+MONTYPE DATI: 1/ct        MONTYPE DP: 1/ct          MONTYPE IS: 1/ct
+MONTYPE FC: 47/ct         MONTYPE US: 3/ct          MONTYPE PS: 3/ct
+MONTYPE DS: 3/ct          
+
+MONDP 011: 1/ct           MONDP 012: 1/ct           MONDP S01_1nos: 1/ct
+MONDP S01_2nos: 1/ct      MONDP 021: 1/ct           MONDP 022: 1/ct
+MONDP 023: 1/ct           MONDP 024: 1/ct           MONDP S021: 1/ct
+MONDP S022: 1/ct          MONDP 031: 1/ct           MONDP 032: 1/ct
+MONDP 033: 1/ct           MONDP 034: 1/ct           MONDP opticom: 1/ct
+MONDP S03_1nos: 1/ct      MONDP S03_2nos: 1/ct      MONDP 051: 1/ct
+MONDP 052: 1/ct           MONDP 053: 1/ct           MONDP 054: 1/ct
+MONDP 055: 1/ct           MONDP 056: 1/ct           MONDP S051: 1/ct
+MONDP S052: 1/ct          MONDP 061: 1/ct           MONDP 062: 1/ct
+MONDP 063: 1/ct           MONDP 064: 1/ct           MONDP S061: 1/ct
+MONDP S062: 1/ct          MONDP 071: 1/ct           MONDP 072: 1/ct
+MONDP 073: 1/ct           MONDP 074: 1/ct           MONDP 081: 1/ct
+MONDP 082: 1/ct           MONDP 083: 1/ct           MONDP 084: 1/ct
+MONDP S081: 1/ct          MONDP S082: 1/ct          MONDP 091: 1/ct
+MONDP 092: 1/ct           MONDP 093: 1/ct           MONDP 094: 1/ct
+MONDP 101: 1/ct           MONDP 102: 1/ct           MONDP 103: 1/ct
+MONDP 111: 1/ct           MONDP 112: 1/ct           MONDP 113: 1/ct
+MONDP 114: 1/ct           MONDP 115: 1/ct           MONDP 116: 1/ct
+MONDP 117: 1/ct           MONDP 118: 1/ct           MONDP 119: 1/ct
+MONDP S111: 1/ct          MONDP S112: 1/ct          MONDP 121: 1/ct
+MONDP 122: 1/ct           MONDP 123: 1/ct           MONDP 241: 1/ct
+MONDP 242: 1/ct           MONDP K241: 1/ct          MONDP 261: 1/ct
+MONDP 262: 1/ct           MONDP K261: 1/ct          MONDP 281: 1/ct
+MONDP 282: 1/ct           MONDP K281: 1/ct          MONDP K321: 1/ct
+MONDP K322: 1/ct          MONDP K341: 1/ct          MONDP K342: 1/ct
+MONDP K361: 1/ct          MONDP K362: 1/ct          MONDP K371: 1/ct
+MONDP K372: 1/ct          MONDP K381: 1/ct          MONDP K382: 1/ct
+MONDP lb1: 1/ct           MONDP lb2: 1/ct           MONDP lb3: 1/ct
+MONDP lb4: 1/ct           MONDP lb5: 1/ct           MONDP lb6: 1/ct
+MONDP lb7: 1/ct           MONDP lb8: 1/ct           MONDP lb9: 1/ct
+MONDP lb10: 1/ct          MONDP K601: 1/ct          MONDP K602: 1/ct
+
+MONIS FIX: 1/ct           MONIS DEBUG_DVM: 1/ct     MONIS DEBUG_KICK: 1/ct
+MONIS DEBUG_VG1: 1/ct     MONIS DEBUG_VG2: 1/ct     MONIS DEBUG_VG3: 1/ct
+MONIS DEBUG_VG4: 1/ct     MONIS DEBUG_VG5: 1/ct     MONIS DEBUG_VG6: 1/ct
+MONIS DEBUG_VG7: 1/ct     MONIS DEBUG_VG8: 1/ct     MONIS DEBUG_VG9: 1/ct
+MONIS DEBUG_VG10: 1/ct    MONIS DEBUG_VG11: 1/ct    MONIS DEBUG_VG12: 1/ct
+MONIS DEBUG_HIAAT: 1/ct   MONIS DEBUG_PRIO2: 1/ct   MONIS DEBUG_PRIO3: 1/ct
+MONIS DEBUG_RGV: 1/ct     MONIS DEBUG_LB: 1/ct      MONIS DEBUG_LBCONT: 1/ct
+
+MONFC 01: 15/ct           MONFC 02: 15/ct           MONFC 03: 15/ct
+MONFC 05: 15/ct           MONFC 06: 15/ct           MONFC 07: 15/ct
+MONFC 08: 15/ct           MONFC 09: 15/ct           MONFC 10: 15/ct
+MONFC 11: 15/ct           MONFC 12: 15/ct           MONFC 24: 15/ct
+MONFC 26: 15/ct           MONFC 28: 15/ct           MONFC 32: 15/ct
+MONFC 33: 15/ct           MONFC 34: 15/ct           MONFC 35: 15/ct
+MONFC 36: 15/ct           MONFC 37: 15/ct           MONFC 38: 15/ct
+MONFC 60: 15/ct           
+
+MONUS VC01: 3/ct          MONUS VC02: 3/ct          MONUS VC03: 3/ct
+MONUS VC05: 3/ct          MONUS VC06: 3/ct          MONUS VC08: 3/ct
+MONUS VC11: 3/ct          MONUS PERDEF: 3/ct        MONUS PER1: 3/ct
+MONUS PER2: 3/ct          MONUS PER3: 3/ct          MONUS PER4: 3/ct
+MONUS PER5: 3/ct          MONUS WTK241: 3/ct        MONUS WTK261: 3/ct
+MONUS WTK281: 3/ct        MONUS WTK321: 3/ct        MONUS WTK322: 3/ct
+MONUS WTK341: 3/ct        MONUS WTK342: 3/ct        MONUS WTK361: 3/ct
+MONUS WTK362: 3/ct        MONUS WTK371: 3/ct        MONUS WTK372: 3/ct
+MONUS WTK381: 3/ct        MONUS WTK382: 3/ct        MONUS WTK601: 3/ct
+MONUS WTK602: 3/ct        MONUS RTDIM: 3/ct         MONUS RT38: 3/ct
+MONUS MAXWTO: 3/ct        MONUS RGV: 3/ct           MONUS DVM: 3/ct
+MONUS DVM_KICK_ONTV: 3/ct MONUS DVM_VG1: 3/ct       MONUS DVM_VG2: 3/ct
+MONUS DVM_VG3: 3/ct       MONUS DVM_VG4: 3/ct       MONUS DVM_VG5: 3/ct
+MONUS DVM_VG6: 3/ct       MONUS DVM_VG7: 3/ct       MONUS DVM_VG8: 3/ct
+MONUS DVM_VG9: 3/ct       MONUS DVM_VG10: 3/ct      MONUS DVM_VG11: 3/ct
+MONUS DVM_VG12: 3/ct      MONUS DVM_HIAAT: 3/ct     MONUS DVM_PRIO2: 3/ct
+MONUS DVM_PRIO3: 3/ct     MONUS DVM_VG_OVR: 3/ct    MONUS SS_FILE01: 3/ct
+MONUS SS_FILE02: 3/ct     MONUS SS_FILE03: 3/ct     MONUS SS_FILE05: 3/ct
+MONUS SS_FILE06: 3/ct     MONUS SS_FILE07: 3/ct     MONUS SS_FILE08: 3/ct
+MONUS SS_FILE09: 3/ct     MONUS SS_FILE10: 3/ct     MONUS SS_FILE11: 3/ct
+MONUS SS_FILE12: 3/ct     MONUS LB1: 3/ct           MONUS LB2: 3/ct
+MONUS LB3: 3/ct           MONUS LB4: 3/ct           MONUS LB5: 3/ct
+MONUS LB6: 3/ct           MONUS LB7: 3/ct           MONUS LB8: 3/ct
+MONUS LB9: 3/ct           MONUS LB10: 3/ct          MONUS LB: 3/ct
+MONUS LBCONTINUE: 3/ct    MONUS FILED103: 3/ct      MONUS FILE11: 3/ct
+MONUS FILED117: 3/ct      MONUS FILED118: 3/ct      MONUS FILED119: 3/ct
+MONUS FILED123: 3/ct      MONUS SEGM1: 3/ct         MONUS SEGM2: 3/ct
+MONUS SEGM3: 3/ct         MONUS SEGM4: 3/ct         MONUS SEGM5: 3/ct
+MONUS SEGM6: 3/ct         MONUS SEGM7: 3/ct         
+
+MONDS    : 1/ct           MONDS S021: 1/ct          MONDS S022: 1/ct
+MONDS S051: 1/ct          MONDS S052: 1/ct          MONDS S061: 1/ct
+MONDS S062: 1/ct          MONDS S081: 1/ct          MONDS S082: 1/ct
+MONDS S111: 1/ct          MONDS S112: 1/ct          
+
+MONPRM VLOGMODE: 10/ct    
+
+**** EINDE PDUMP ****
+</textarea><br>
+    <button id="preview">Voorbeeld</button> <button id="download">Download</button>
+
+    <script src="pdump2ccol.js"></script>
+
+    <p><a href="https://github.com/VCDH/pdump2ccol/">Broncode op GitHub</a></p>
+</body>
+</html>

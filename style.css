@@ -1,0 +1,12 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+textarea {
+    width: 800px;
+    height: 400px;
+}
+
+button {
+    margin-top: 1em;
+}
